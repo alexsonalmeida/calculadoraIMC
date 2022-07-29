@@ -32,10 +32,24 @@ dados.addEventListener('submit', function (e) {
             res.innerHTML = '<p>Altura inválida</p>'
         } else {
             const result = (calcularIMC(p, a)).toFixed(2)
-            res.innerHTML = `<p>O seu imc é: ${result}</p>`
+            const state = (verificaEstado(result))
+            res.innerHTML = `<p>O seu imc é: ${result} (${state})</p>`
         }
     }
 })
+
+function verificaEstado(result) {
+    let msg
+
+    if (result >= 18.5 && result <= 25.9) msg = 'peso normal'
+    else if (result >= 25 && result <= 29.9) msg = 'acima do peso'
+    else if (result >= 30 && result <= 34.9) msg = 'obesidade I'
+    else if (result >= 35 && result <= 39.9) msg = 'obesidade II'
+    else if (result >= 40) msg = 'obesidade III'
+    else msg = 'abaixo do peso'
+
+    return msg
+}
 
 function calcularIMC(p, a) {
     return p / a ** 2    
